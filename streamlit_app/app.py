@@ -12,7 +12,6 @@ import io
 import json
 import re
 import sys
-import time
 import urllib.request
 from pathlib import Path
 
@@ -20,9 +19,11 @@ import streamlit as st
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
+sys.path.insert(0, str(Path(__file__).resolve().parent))  # nvidia_picker.py lives next to this file
 
 from patent_ai.analysis import analyze_office_action  # noqa: E402
 from patent_ai.generation.llm_client import AnthropicLLMClient, OpenAICompatibleLLMClient  # noqa: E402
+from nvidia_picker import find_working_model, key_problem  # noqa: E402
 
 SAMPLES = ROOT / "streamlit_app" / "samples"
 TEST_PDFS_URL = "https://github.com/Abhishek2005-Siva/patent-office-action-test-pdfs"
@@ -55,56 +56,6 @@ def nvidia_models() -> list[str]:
         return (first + [i for i in chat if i not in first]) or list(_PREFERRED)
     except Exception:  # noqa: BLE001 - offline or endpoint changed
         return list(_PREFERRED)
-
-
-PROBE_TIMEOUT = 15       # seconds a model gets to answer the probe
-PROBE_SECONDS = 60       # stop looking after this long
-FAST_ENOUGH_SECONDS = 4  # stop at the first good model that answers this quickly
-PROBE_PROMPT = ("In one sentence, explain why a claim is not anticipated under 35 U.S.C. 102 "
-                "if the cited reference lacks one claimed element.")
-
-
-def probe_model(api_key: str, model: str) -> tuple[str, float, str]:
-    """Ask a small drafting question and time it. Returns (state, seconds, detail):
-    "good" (a real sentence came back), "callable" (answered but empty, as reasoning models do
-    with a small token budget) or "failed" (404 not available to this key, 503, timeout...)."""
-    started = time.monotonic()
-    try:
-        client = OpenAICompatibleLLMClient(api_key=api_key, model=model, base_url=NVIDIA_BASE_URL,
-                                           timeout=PROBE_TIMEOUT, max_retries=1)
-        text = client.generate(system="You are a patent attorney's assistant.", prompt=PROBE_PROMPT,
-                               max_tokens=120)
-    except Exception as exc:  # noqa: BLE001
-        return "failed", time.monotonic() - started, str(exc)
-    seconds = time.monotonic() - started
-    return ("good" if len(text.strip()) >= 25 else "callable"), seconds, text
-
-
-def find_working_model(api_key: str) -> dict:
-    """Try NVIDIA models with the visitor's own key and pick the fastest that drafts properly.
-
-    NVIDIA's catalog lists models a given key cannot call (HTTP 404), and free endpoints are
-    sometimes overloaded (503), so the only reliable test is a real request."""
-    report = {"model": None, "quality": None, "seconds": None, "failures": []}
-    started, good, callable_only = time.monotonic(), [], []
-    for model in nvidia_models():
-        if time.monotonic() - started > PROBE_SECONDS or len(good) >= 3:
-            break
-        state, seconds, detail = probe_model(api_key, model)
-        if state == "failed":
-            report["failures"].append(f"{model}: {detail[:140]}")
-        elif state == "good":
-            good.append((seconds, model))
-            if seconds <= FAST_ENOUGH_SECONDS:
-                break
-        else:
-            callable_only.append((seconds, model))
-            report["failures"].append(f"{model}: answered with nothing usable ({seconds:.0f}s)")
-    pool, quality = (good, "good") if good else (callable_only, "untested")
-    if pool:
-        report["seconds"], report["model"] = min(pool)
-        report["quality"] = quality
-    return report
 
 
 PROVIDERS = {
@@ -155,11 +106,15 @@ def sidebar() -> tuple[str, str, str]:
             models = nvidia_models() if provider == "NVIDIA (free)" else cfg["models"]
             model = st.selectbox("Model", models, key="model_sel")
             if provider == "NVIDIA (free)":
+                problem = key_problem(api_key)
+                if problem:
+                    st.warning(problem)
                 if st.button("Find a working model", disabled=not api_key,
-                             help="Some models in NVIDIA's catalog aren't available to every key (404). "
-                                  "This tries them with your key and picks the fastest that works."):
-                    with st.spinner("Trying models with your key (a few seconds)..."):
-                        report = find_working_model(api_key)
+                             help="NVIDIA's catalog lists models some keys can't call (404), and it differs "
+                                  "from key to key. This tries them in parallel with your key and picks the "
+                                  "fastest that works."):
+                    with st.spinner("Trying models with your key (up to ~40 seconds)..."):
+                        report = find_working_model(api_key, nvidia_models(), kind="chat")
                     st.session_state["probe_report"] = report
                     if report["model"]:
                         st.session_state["pending_model"] = report["model"]
@@ -167,16 +122,16 @@ def sidebar() -> tuple[str, str, str]:
                 report = st.session_state.get("probe_report")
                 if report:
                     if report["model"]:
-                        st.success(f"Using {report['model']}.")
+                        st.success(f"Using {report['model']} ({report['seconds']:.1f}s).")
                         if report["quality"] == "untested":
                             st.warning("It responded but returned little text, so letters may be slow "
                                        "or fall back to the template.")
                     else:
-                        st.error("No model worked for this key. Check the key at build.nvidia.com.")
+                        st.error(report["diagnosis"])
                     if report["failures"]:
                         with st.expander(f"Models that didn't work ({len(report['failures'])})"):
-                            for line in report["failures"]:
-                                st.text(line)
+                            for model_name, detail in report["failures"]:
+                                st.text(f"{model_name}: {detail}")
             st.caption("Your office action text is sent to this provider to draft arguments.")
         else:
             st.caption("The scoring and a template-based letter run fully offline.")
