@@ -1,0 +1,58 @@
+%PDF-1.4
+1 0 obj
+<</Type/Catalog/Pages 2 0 R>>
+endobj
+2 0 obj
+<</Type/Pages/Kids[5 0 R]/Count 1>>
+endobj
+3 0 obj
+<</Type/Font/Subtype/Type1/BaseFont/Helvetica>>
+endobj
+4 0 obj
+<</Type/Font/Subtype/Type1/BaseFont/Helvetica-Bold>>
+endobj
+5 0 obj
+<</Type/Page/Parent 2 0 R/MediaBox[0 0 612 792]/Resources<</Font<</F1 3 0 R/F2 4 0 R>>>>/Contents 6 0 R>>
+endobj
+6 0 obj
+<</Length 1128>>
+stream
+BT /F2 13 Tf 72 748 Td (UNITED STATES PATENT AND TRADEMARK OFFICE - OFFICE ACTION) Tj ET
+BT /F1 11 Tf 15 TL 72 720 Td
+(NON-FINAL REJECTION) Tj T*
+() Tj T*
+(Application No.: 15/700,001) Tj T*
+() Tj T*
+(Claims 1-2 are rejected under 35 U.S.C. 102\(a\)\(1\) as being anticipated by) Tj T*
+(Chen \(US 6,777,888\).) Tj T*
+() Tj T*
+(Chen discloses each and every element of claim 1, including the recited) Tj T*
+(sensor array and control circuit, arranged in the exact configuration) Tj T*
+(claimed.) Tj T*
+() Tj T*
+(Claims 6-8 are rejected under 35 U.S.C. 103 as being unpatentable over) Tj T*
+(Chen \(US 6,777,888\) in view of Patel \(US 7,888,999\) and further in view of) Tj T*
+(Osei \(US 8,999,000\).) Tj T*
+() Tj T*
+(Patel teaches a wireless transmitter module, and Osei teaches a battery) Tj T*
+(management circuit. It would have been obvious to combine these known) Tj T*
+(components with Chen's sensor array because doing so would predictably) Tj T*
+(enable remote monitoring, a commonly desired feature.) Tj T*
+ET
+BT /F1 8 Tf 72 40 Td (Synthetic example for testing patent-office-action-ai. Not a real USPTO document.) Tj ET
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000054 00000 n 
+0000000105 00000 n 
+0000000168 00000 n 
+0000000236 00000 n 
+0000000357 00000 n 
+trailer
+<</Size 7/Root 1 0 R>>
+startxref
+1535
+%%EOF

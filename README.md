@@ -55,9 +55,14 @@ sample office actions (or paste text, or upload a PDF), and it shows the 0-100 r
 the estimated chance of overcoming it, a per-statute breakdown, and a drafted response letter you
 can download.
 
+- **Test PDFs:** example office actions to try the **Upload PDF** tab are in
+  [patent-office-action-test-pdfs](https://github.com/Abhishek2005-Siva/patent-office-action-test-pdfs),
+  with the results each should produce. They also live in `streamlit_app/samples/` and are rebuilt by
+  `scripts/make_sample_pdfs.py`.
 - **Template mode** needs no key and runs fully offline.
 - **Model-written arguments:** pick NVIDIA (free key), OpenAI or Anthropic (Claude), paste your own
-  key, and choose a model. The key is used only for your requests in that browser session. If the
+  key (press Enter; the sidebar confirms "Key received"), and choose a model. NVIDIA's catalog lists
+  models some keys can't call (404), so use **Find a working model** to pick one that works for yours. The key is used only for your requests in that browser session. If the
   provider call fails, the app shows the error and falls back to the template letter.
 - **Privacy:** in model mode the office action text is sent to the provider you chose, so don't paste
   confidential matter into a shared demo.

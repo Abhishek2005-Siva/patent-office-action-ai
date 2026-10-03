@@ -47,12 +47,18 @@ class OpenAICompatibleLLMClient:
     """Any OpenAI-compatible chat endpoint: OpenAI itself (base_url=None) or, for
     example, NVIDIA's free hosted models (base_url="https://integrate.api.nvidia.com/v1")."""
 
-    def __init__(self, api_key: str, model: str, base_url: str | None = None):
+    def __init__(self, api_key: str, model: str, base_url: str | None = None,
+                 timeout: float | None = None, max_retries: int | None = None):
         if not api_key:
             raise RuntimeError("An API key is required for OpenAICompatibleLLMClient.")
         from openai import OpenAI
 
-        self._client = OpenAI(api_key=api_key, base_url=base_url)
+        extra = {}
+        if timeout is not None:
+            extra["timeout"] = timeout
+        if max_retries is not None:
+            extra["max_retries"] = max_retries
+        self._client = OpenAI(api_key=api_key, base_url=base_url, **extra)
         self._model = model
 
     def generate(self, *, system: str, prompt: str, max_tokens: int = 2000) -> str:
