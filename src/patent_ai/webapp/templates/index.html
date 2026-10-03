@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Patent Office Action Analyzer</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 820px; margin: 2rem auto; padding: 0 1rem; color: #1a1a1a; }
+    textarea { width: 100%; min-height: 200px; font-family: monospace; font-size: 0.85rem; }
+    input[type=text] { width: 100%; padding: 0.4rem; }
+    label { display: block; margin-top: 1rem; font-weight: 600; }
+    button { margin-top: 1.2rem; padding: 0.6rem 1.2rem; font-size: 1rem; cursor: pointer; }
+    #result { white-space: pre-wrap; background: #f5f5f5; padding: 1rem; margin-top: 1.5rem; border-radius: 6px; display: none; }
+    .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; background: #eee; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <h1>Patent Office Action Analyzer</h1>
+  <p>Paste office action text (or upload a PDF) to get a rejection strength score and a draft response.</p>
+
+  <form id="analyze-form">
+    <label for="applicant_name">Applicant name</label>
+    <input type="text" id="applicant_name" name="applicant_name" value="Applicant">
+
+    <label for="office_action_text">Office action text</label>
+    <textarea id="office_action_text" name="office_action_text" placeholder="Paste office action text here..."></textarea>
+
+    <label for="office_action_file">...or upload a PDF</label>
+    <input type="file" id="office_action_file" name="office_action_file" accept="application/pdf">
+
+    <label for="claims_text">Applicant's claims (optional, improves LLM arguments)</label>
+    <textarea id="claims_text" name="claims_text"></textarea>
+
+    <label for="spec_text">Specification excerpt (optional)</label>
+    <textarea id="spec_text" name="spec_text"></textarea>
+
+    <label>
+      <input type="checkbox" id="use_llm" name="use_llm" {{ '' if llm_available else 'disabled' }}>
+      Use Claude to draft arguments {{ '' if llm_available else '(set ANTHROPIC_API_KEY to enable)' }}
+    </label>
+
+    <button type="submit">Analyze</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    document.getElementById('analyze-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = new FormData(e.target);
+      const resultEl = document.getElementById('result');
+      resultEl.style.display = 'block';
+      resultEl.textContent = 'Analyzing...';
+      try {
+        const res = await fetch('/analyze', { method: 'POST', body: form });
+        const data = await res.json();
+        if (!res.ok) {
+          resultEl.textContent = 'Error: ' + data.error;
+          return;
+        }
+        resultEl.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        resultEl.textContent = 'Request failed: ' + err;
+      }
+    });
+  </script>
+</body>
+</html>

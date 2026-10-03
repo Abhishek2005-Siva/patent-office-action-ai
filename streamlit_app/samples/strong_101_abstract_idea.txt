@@ -1,0 +1,14 @@
+FINAL REJECTION
+
+Application No.: 15/300,200
+
+Claims 1, 9, and 15 are rejected under 35 U.S.C. 101 because the claimed
+invention is directed to a judicial exception (an abstract idea) without
+significantly more. The claims recite the abstract idea of collecting,
+analyzing, and displaying information, which clearly falls within the
+"certain methods of organizing human activity" grouping. The additional
+elements of a generic processor and generic memory, considered individually
+and in combination, do not integrate the judicial exception into a
+practical application and do not amount to significantly more than the
+judicial exception itself, as they explicitly recite only generic computer
+components performing generic computer functions.

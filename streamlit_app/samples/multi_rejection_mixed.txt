@@ -1,0 +1,19 @@
+NON-FINAL REJECTION
+
+Application No.: 15/700,001
+
+Claims 1-2 are rejected under 35 U.S.C. 102(a)(1) as being anticipated by
+Chen (US 6,777,888).
+
+Chen discloses each and every element of claim 1, including the recited
+sensor array and control circuit, arranged in the exact configuration
+claimed.
+
+Claims 6-8 are rejected under 35 U.S.C. 103 as being unpatentable over
+Chen (US 6,777,888) in view of Patel (US 7,888,999) and further in view of
+Osei (US 8,999,000).
+
+Patel teaches a wireless transmitter module, and Osei teaches a battery
+management circuit. It would have been obvious to combine these known
+components with Chen's sensor array because doing so would predictably
+enable remote monitoring, a commonly desired feature.

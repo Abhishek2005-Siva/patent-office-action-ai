@@ -1,0 +1,10 @@
+NON-FINAL REJECTION
+
+Application No.: 16/222,333
+
+Claim 4 is rejected under 35 U.S.C. 112(a) as failing to comply with the
+written description requirement. Claim 4 recites "a self-adjusting tension
+band," and it seems this term may not be adequately supported by the
+original disclosure. The examiner notes the specification appears to
+describe a tension band at paragraph [0031], but it is not entirely clear
+whether the self-adjusting feature is explicitly disclosed.

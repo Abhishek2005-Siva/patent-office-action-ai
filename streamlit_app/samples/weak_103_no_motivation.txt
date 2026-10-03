@@ -1,0 +1,13 @@
+NON-FINAL REJECTION
+
+Application No.: 15/123,456
+
+Claims 1-3 are rejected under 35 U.S.C. 103 as being unpatentable over
+Smith (US 5,111,222) in view of Jones (US 6,222,333).
+
+Smith discloses a water bottle comprising a body and a cap. Jones discloses
+a separate container with a hinged lid. It may be possible to combine the
+hinge of Jones with the cap of Smith. The resulting combination appears to
+render claim 1 obvious. Applicant's magnetic locking mechanism recited in
+claim 1 is not explicitly discussed by either reference, but the examiner
+believes it would have been an obvious design choice.

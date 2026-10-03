@@ -1,0 +1,17 @@
+FINAL REJECTION
+
+Application No.: 15/987,654
+
+Claims 1-5 are rejected under 35 U.S.C. 103 as being unpatentable over
+Nguyen (US 7,444,555) in view of Park (US 8,555,666).
+
+Nguyen explicitly teaches a magnetic locking mechanism for a container
+closure, and Park explicitly teaches applying such a mechanism to a
+portable drinking vessel to prevent accidental opening during transport.
+Park provides an explicit motivation to combine, clearly teaching that
+combining a magnetic latch with a portable bottle closure reduces spillage.
+One of ordinary skill in the art would have had a reasonable expectation of
+success in combining these known elements according to their established
+functions, and the combination merely yields the predictable result of a
+sealed, spill-resistant container. Claims 1-5 are clearly and explicitly
+taught by the combined references.

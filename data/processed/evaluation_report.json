@@ -1,0 +1,65 @@
+{
+  "fixture_ordering": {
+    "per_fixture": [
+      {
+        "name": "weak_103_no_motivation",
+        "qualitative_strength": "weak",
+        "predicted_strength": 2
+      },
+      {
+        "name": "strong_103_with_motivation",
+        "qualitative_strength": "strong",
+        "predicted_strength": 86
+      },
+      {
+        "name": "moderate_102_missing_element",
+        "qualitative_strength": "moderate",
+        "predicted_strength": 13
+      },
+      {
+        "name": "strong_102_all_elements",
+        "qualitative_strength": "strong",
+        "predicted_strength": 72
+      },
+      {
+        "name": "weak_112_written_description",
+        "qualitative_strength": "weak",
+        "predicted_strength": 0
+      },
+      {
+        "name": "multi_rejection_mixed",
+        "qualitative_strength": "moderate",
+        "predicted_strength": 71
+      },
+      {
+        "name": "strong_101_abstract_idea",
+        "qualitative_strength": "strong",
+        "predicted_strength": 58
+      }
+    ],
+    "spearman_correlation": 0.8504200642707614,
+    "p_value": 0.015307992057824946,
+    "n": 7
+  },
+  "real_claim_breadth": {
+    "n_apps": 781,
+    "rejection_rate": 0.18950064020486557,
+    "claim_word_count": {
+      "spearman_correlation": -0.11778827870685431,
+      "p_value": 0.0009738645883491303,
+      "roc_auc_vs_inverted_length": 0.5867010375304214
+    },
+    "claim_element_count": {
+      "spearman_correlation": -0.0665738184173787,
+      "p_value": 0.06294490890698896
+    },
+    "interpretation": "Negative correlation is the expected direction: shorter/broader claims (fewer words, fewer elements) are associated with higher real rejection rates."
+  },
+  "real_crowdedness_proxy": {
+    "n_apps": 722,
+    "elapsed_seconds": 11.2,
+    "spearman_correlation": -0.037040301831328275,
+    "p_value": 0.32027563073382714,
+    "interpretation": "No meaningful signal found (|corr| small, not significant). Same-CPC-class lexical overlap with random peers is too loose a proxy for actual invalidating prior art -- reported honestly as a negative result, not hidden."
+  }
+}

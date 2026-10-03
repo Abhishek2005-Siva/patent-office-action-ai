@@ -1,0 +1,16 @@
+{
+  "id": "butterboy/patent-ai-office-actions-bigquery-export",
+  "title": "Patent AI - Office Actions BigQuery Export",
+  "code_file": "query_office_actions.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": "true",
+  "enable_gpu": "false",
+  "enable_tpu": "false",
+  "enable_internet": "true",
+  "machine_shape": "",
+  "dataset_sources": ["bigquery/uspto-oce-office-actions"],
+  "competition_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}
